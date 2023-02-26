@@ -22,6 +22,7 @@ from kinofilm.views import *
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('/',index),
     path('', include('kinofilm.urls')),
 ]
 if settings.DEBUG:

@@ -1,9 +1,15 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpResponseNotFound
-# Create your views here.
+from .models import *
+
+menu = ["О сайте","Добавить фильм","Обратная связь","Войти"]
 
 def index(request):
-    return HttpResponse("Страница приложения")
+    posts = Movie.objects.all()
+    return render(request,'kinofilm/index.html',{'posts':posts,'menu':menu,'title': 'Main Page'})
+
+def about(request):
+    return render(request,'kinofilm/about.html',{'menu':menu,'title': 'About us'})
 
 def categories(request,catid):
     if(request.POST):

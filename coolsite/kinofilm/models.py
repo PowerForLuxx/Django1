@@ -8,6 +8,9 @@ class Users(models.Model):
     password = models.CharField(max_length=20)
     email = models.CharField(max_length=32)
 
+    def __str__(self):
+        return self.username
+
 
 class Movie(models.Model):
     Name = models.CharField(max_length=20)
@@ -15,4 +18,6 @@ class Movie(models.Model):
     Description = models.TextField(blank=True)
     Price = models.IntegerField
     Place = models.IntegerField
+
+
 
