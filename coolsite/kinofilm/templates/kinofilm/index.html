@@ -9,7 +9,7 @@
         <p>{{p.Description|linebreaks|truncatewords:50}}</p>
         {% endautoescape %}
         <div class="clear"></div>
-        <p class="link-read-post"><a href="#">Смотреть</a> </p>
+        <p class="link-read-post"><a href="{{ p.get_absolute_url }}">Смотреть</a> </p>
         <hr>
     </li>
     {% endfor %}

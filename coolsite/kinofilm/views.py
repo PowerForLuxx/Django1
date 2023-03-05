@@ -2,24 +2,33 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpResponseNotFound
 from .models import *
 
-menu = ["О сайте","Добавить фильм","Обратная связь","Войти"]
+menu = [{'title': "О сайте", 'url_name': 'about'},
+        {'title': "Добавить Фильм", 'url_name': 'add_page'},
+        {'title': "Обратная Связь", 'url_name': 'contact'},
+        {'title': "Войти", 'url_name': 'login'}]
 
 def index(request):
     posts = Movie.objects.all()
-    return render(request,'kinofilm/index.html',{'posts':posts,'menu':menu,'title': 'Main Page'})
+    context = {
+        'posts' : posts,
+        'menu' : menu,
+        'title' : 'Главная страница'
+    }
+    return render(request,'kinofilm/index.html',context=context)
 
 def about(request):
-    return render(request,'kinofilm/about.html',{'menu':menu,'title': 'About us'})
+    return render(request,'kinofilm/about.html',{'menu':menu,'title': 'О сайте'})
 
-def categories(request,catid):
-    if(request.POST):
-     print(request.POST)
-    return HttpResponse(f"<h1>Статьи по категориям</h1><p>{catid}</p>")
+def addpage(request):
+    return  HttpResponse("Добавление фильма")
 
-def archive(request, year):
-    if int(year)>2023:
-        return redirect('home', permanent=True)
-    return HttpResponse(f"<h1>Архив по годам</h1><p>{year}</p>")
+def contact(request):
+    return HttpResponse("Обратная связь")
 
+def login(request):
+    return HttpResponse("Авторизация")
+
+def show_post(request,post_id):
+    return HttpResponse(f"Фильм с айди = {post_id}")
 def pageNotFound(request,exception):
     return HttpResponseNotFound('<h1>Страница не найдена!</h1>')
