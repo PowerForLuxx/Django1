@@ -18,6 +18,7 @@ class Movie(models.Model):
     Description = models.TextField(blank=True,verbose_name=" Описание")
     Price = models.IntegerField
     Place = models.IntegerField
+    cat = models.ForeignKey('Category', on_delete=models.PROTECT,verbose_name="Категории")
 
     def get_absolute_url(self):
         return reverse('post', kwargs ={'post_id':self.pk})
@@ -33,7 +34,7 @@ class Category(models.Model):
         return self.name
 
     def get_absolute_url(self):
-        return reverse('category', kwargs={'cat_id': self.pk})
+        return reverse('category', kwargs={'cat_slug': self.slug})
 
     class Meta:
         verbose_name = 'Категория'
