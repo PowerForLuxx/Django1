@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'debug_toolbar',
     'captcha',
     'kino.apps.KinoConfig',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
@@ -151,3 +152,9 @@ CACHES = {
 INTERNAL_IPS = [
     '127.0.0.1',
 ]
+REST_FRAMEWORK = {
+    'DEFAULT_RENDERER_CLASSES': [
+        'rest_framework.renderers.JSONRenderer',
+        'rest_framework.renderers.BrowsableAPIRenderer'
+    ]
+}

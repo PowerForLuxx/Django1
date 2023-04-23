@@ -1,4 +1,14 @@
 from django.contrib.auth import logout, login
+from django.forms import model_to_dict
+from rest_framework import generics, viewsets, mixins
+from rest_framework.decorators import action
+from rest_framework.response import Response
+from rest_framework.views import APIView
+from rest_framework.viewsets import GenericViewSet
+from rest_framework.permissions import IsAdminUser, IsAuthenticatedOrReadOnly
+
+from .permissions import IsAdminOrReadOnly
+from .serializers import *
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.views import LoginView
@@ -12,12 +22,93 @@ from kino.forms import *
 from kino.models import *
 from .utils import *
 
-# menu = [{'title': "О сайте", 'url_name': 'about'},
-#         {'title': "Добавить фильм", 'url_name': 'add_page'},
-#         {'title': "Обратная связь", 'url_name': 'contact'},
-#         {'title': "Войти", 'url_name': 'login'}]
+class MovieAPIList(generics.ListCreateAPIView):
+    queryset = Movie.objects.all()
+    serializer_class = MovieSerializer
+    permission_classes = (IsAdminOrReadOnly, )
 
-class MovieHome(DataMixin,ListView):
+class MovieAPIUpdate(generics.RetrieveUpdateAPIView):
+    queryset = Movie.objects.all()
+    serializer_class = MovieSerializer
+    permission_classes = (IsAdminOrReadOnly, )
+
+class MovieAPIDestroy(generics.RetrieveDestroyAPIView):
+    queryset = Movie.objects.all()
+    serializer_class = MovieSerializer
+    permission_classes = (IsAdminOrReadOnly,)
+
+
+# class MovieViewSet(mixins.CreateModelMixin,
+#                    mixins.RetrieveModelMixin,
+#                    mixins.UpdateModelMixin,
+#                    mixins.DestroyModelMixin,
+#                    mixins.ListModelMixin,
+#                    GenericViewSet):
+#     # queryset = Movie.objects.all()
+#     serializer_class = MovieSerializer
+#     def get_queryset(self):
+#         pk = self.kwargs.get("pk")
+#         if not pk:
+#             return Movie.objects.all()[:3]
+#         return Movie.objects.filter(pk=pk)
+#
+#     @action(methods=['get'], detail=True)
+#     def category(self, request, pk=None):
+#         cats = Category.objects.get(pk=pk)
+#         return Response({'cats':cats.name})
+
+# class MovieAPIList(generics.ListCreateAPIView):
+#     queryset = Movie.objects.all()
+#     serializer_class = MovieSerializer
+#
+# class MovieAPIUpdate(generics.UpdateAPIView):
+#     queryset = Movie.objects.all()
+#     serializer_class = MovieSerializer
+#
+# class MovieAPIDetailView(generics.RetrieveUpdateAPIView):
+#     queryset = Movie.objects.all()
+#     serializer_class = MovieSerializer
+
+# class MovieAPIView(APIView):
+#     def get(self, request):
+#         m = Movie.objects.all()
+#         return Response({'posts': MovieSerializer(m, many=True).data})
+#
+#     def post(self, request):
+#         serializer = MovieSerializer(data=request.data)
+#         serializer.is_valid(raise_exception=True)
+#         serializer.save()
+#
+#         return Response({'post': serializer.data})
+#
+#     def put(self, request, *args, **kwargs):
+#         pk = kwargs.get("pk", None)
+#         if not pk:
+#             return Response({"error": "Method PUT not allowed"})
+#
+#         try:
+#             instance = Movie.objects.get(pk=pk)
+#         except:
+#             return Response({"error": "Object does not exists"})
+#
+#         serializer = MovieSerializer(data=request.data, instance=instance)
+#         serializer.is_valid(raise_exception=True)
+#         serializer.save()
+#         return Response({"post": serializer.data})
+#
+#     def delete(self, request, *args, **kwargs):
+#         pk = kwargs.get("pk", None)
+#         if not pk:
+#             return Response({"error": "Method DELETE not allowed"})
+
+
+
+
+# class MovieAPIView(generics.ListAPIView):
+#     queryset = Movie.objects.all()
+#     serializer_class = MovieSerializer
+
+class MovieHome(DataMixin, ListView):
     paginate_by = 3
     model = Movie
     template_name = 'kino/index.html'

@@ -20,11 +20,39 @@ from django.urls import path, include
 
 from coolsite import settings
 from kino.views import *
+from rest_framework import routers
+
+
+
+# class MyCustomRouter(routers.SimpleRouter):
+#     routers = [
+#         routers.Route(url=r'^{prefix}$',
+#                       mapping={'get':'list'},
+#                       name='{basename}-list',
+#                       detail=False,
+#                       initkwargs={'suffix': 'List'}),
+#         routers.Route(url=r'^{prefix}/{lookup}$',
+#                       mapping={'get':'retrieve'},
+#                       name='{basename}-detail',
+#                       detail=True,
+#                       initkwargs={'suffix':'Detail'})
+#     ]
+#
+# router = MyCustomRouter()
+# router.register(r'movie', MovieViewSet, basename='movie')
+# print(router.urls)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('captcha/', include('captcha.urls')),
-    path('',include('kino.urls'))
+    path('', include('kino.urls')),
+    path('api/v1/movie/', MovieAPIList.as_view()),
+    path('api/v1/movie/<int:pk>/', MovieAPIUpdate.as_view()),
+    path('api/v1/moviedelete/<int:pk>/', MovieAPIDestroy.as_view()),
+    # path('api/v1/', include(router.urls))
+    # path('api/v1/movielist/', MovieViewSet.as_view({'get':'list'})),
+    # path('api/v1/movielist/<int:pk>/',MovieViewSet.as_view({'put':'update'})),
+    # path('api/v1/moviedetail/<int:pk>/',MovieAPIDetailView.as_view()),
 ]
 if settings.DEBUG:
     urlpatterns = [
