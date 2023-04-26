@@ -13,7 +13,6 @@ from .models import *
 #
 
 class MovieSerializer(serializers.ModelSerializer):
-    user = serializers.HiddenField(default=serializers.CurrentUserDefault())
     class Meta:
         model = Movie
         fields = ("__all__")

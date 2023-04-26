@@ -5,7 +5,7 @@ from rest_framework.decorators import action
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.viewsets import GenericViewSet
-from rest_framework.permissions import IsAdminUser, IsAuthenticatedOrReadOnly
+from rest_framework.permissions import IsAdminUser, IsAuthenticatedOrReadOnly, IsAuthenticated
 
 from .permissions import IsAdminOrReadOnly
 from .serializers import *
@@ -30,7 +30,8 @@ class MovieAPIList(generics.ListCreateAPIView):
 class MovieAPIUpdate(generics.RetrieveUpdateAPIView):
     queryset = Movie.objects.all()
     serializer_class = MovieSerializer
-    permission_classes = (IsAdminOrReadOnly, )
+    permission_classes = (IsAuthenticated, )
+    # authentication_classes = (TokenAuthentication, )
 
 class MovieAPIDestroy(generics.RetrieveDestroyAPIView):
     queryset = Movie.objects.all()

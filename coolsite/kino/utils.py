@@ -3,7 +3,6 @@ from django.core.cache import cache
 from kino.models import *
 
 menu = [{'title': "О сайте", 'url_name': 'about'},
-        {'title': "Добавить фильм", 'url_name': 'add_page'},
         {'title': "Обратная связь", 'url_name': 'contact'},
 ]
 
