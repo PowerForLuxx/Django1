@@ -261,7 +261,7 @@ class LoginUser(DataMixin, LoginView):
 
 def logout_user(request):
     logout(request)
-    return redirect('login')
+    return redirect('loginn')
 
 def pageNotFound(request, exception):
     return HttpResponseNotFound('<h1>Страница не найдена!</h1>')

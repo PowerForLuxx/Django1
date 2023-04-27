@@ -2,8 +2,9 @@ from django.db.models import Count
 from django.core.cache import cache
 from kino.models import *
 
-menu = [{'title': "О сайте", 'url_name': 'about'},
+menu = [{'title': "Главная страница", 'url_name': 'home'},
         {'title': "Обратная связь", 'url_name': 'contact'},
+        {'title': "О сайте", 'url_name': 'about'},
 ]
 
 class DataMixin:

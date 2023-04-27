@@ -1,11 +1,12 @@
 {% extends 'kino/base.html' %}
 
 {% block content %}
-<h1>{{title}}</h1>
 
 <form method="post">
     {% csrf_token %}
-
+<div class="login-page">
+    <div class="form">
+        <form class="login-form">
 <div class="form-error">{{ form.non_field_errors }}</div>
 
 {% for f in form %}
@@ -14,6 +15,9 @@
 {% endfor %}
 
     <button type="submit">Войти</button>
+            </form>
+    </div>
+    </div>
 </form>
 
 {% endblock %}

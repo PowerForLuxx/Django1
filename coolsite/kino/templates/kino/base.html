@@ -20,9 +20,9 @@
 			<li><a href="{% url m.url_name %}">{{m.title}}</a></li>
 {% endfor %}
 				{% if request.user.is_authenticated %}
-				<li class="last">{{user.username}} | <a href="{% url 'logout' %}">Выйти</a> </li>
+				<li class="last">{{user.username}} | <a href="{% url 'logoutt' %}">Выйти</a> </li>
 				{% else %}
-				<li class="last"> <a href="{% url 'register' %}">Регистрация</a> | <a href="{% url 'login' %}">Войти</a></li>
+				<li class="last"> <a href="{% url 'register' %}">Регистрация</a> | <a href="{% url 'loginn' %}">Войти</a></li>
 				{% endif %}
 			</ul>
 			<div class="clear"></div>
@@ -130,7 +130,11 @@
 
 				<div>
 					<i class="fa fa-phone"></i>
-					<p>+77077777777777</p>
+					<p>Возникли вопросы?:</p>
+				</div>
+				<div>
+					<i class="fa fa-phone"></i>
+					<p>+77779712188</p>
 				</div>
 
 				<div>
